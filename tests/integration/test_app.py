@@ -14,3 +14,8 @@ def test_set_and_get_new_date():
     app.run({'date': '2020-01-01'})
     assert app.run({'date': ''}) == {'date': '2020-01-01'}
     os.unlink(app.config.path)
+
+
+def test_empty_ledger_param_returns_default_ledger():
+    app = Application()
+    assert app.run({'ledger': ''}) == 'ledger'

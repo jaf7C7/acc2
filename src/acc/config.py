@@ -4,6 +4,7 @@ class Config:
     def __init__(self, path='.acc.conf'):
         self.path = path
         self._date = None
+        self.ledger = 'ledger'
 
     @property
     def date(self):
