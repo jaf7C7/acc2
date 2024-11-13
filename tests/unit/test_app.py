@@ -5,7 +5,7 @@ from acc.app import Application
 
 @pytest.fixture
 def app():
-    return Application(Mock())
+    return Application(Mock(), ledger_type=Mock())
 
 
 def test_empty_date_param_returns_current_date(app):
@@ -33,3 +33,13 @@ def test_non_empty_ledger_param_sets_new_ledger(app):
     app.config.ledger = 'old_ledger'
     app.run({'ledger': 'new_ledger'})
     assert app.config.ledger == 'new_ledger'
+
+
+def test_can_record_transactions(app):
+    transaction = {
+        'type': 'debit',
+        'amount': 1099,
+        'description': 'Toilet paper (multipack).',
+    }
+    app.run({'transaction': transaction})
+    app.ledger.append.assert_called_with(transaction)
