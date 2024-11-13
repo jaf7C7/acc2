@@ -9,4 +9,6 @@ class Application:
         self.config = config
 
     def run(self, args):
+        if args['date'] != '':
+            self.config.date = args['date']
         return {'date': self.config.date}
