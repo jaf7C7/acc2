@@ -18,7 +18,7 @@ class Config:
     @date.setter
     def date(self, new_date):
         self._date = new_date
-        self.write()
+        self.write([{'date': self._date, 'ledger': self._ledger}])
 
     @property
     def ledger(self):
@@ -29,7 +29,7 @@ class Config:
     @ledger.setter
     def ledger(self, new_ledger):
         self._ledger = new_ledger
-        self.write()
+        self.write([{'date': self._date, 'ledger': self._ledger}])
 
     def read(self):
         try:
@@ -39,9 +39,9 @@ class Config:
             config = {}
         return config
 
-    def write(self):
-        config = {'date': self._date, 'ledger': self._ledger}
+    def write(self, lines):
         with open(self.path, mode='w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=config.keys())
+            writer = csv.DictWriter(f, fieldnames=lines[0].keys())
             writer.writeheader()
-            writer.writerow(config)
+            for line in lines:
+                writer.writerow(line)
