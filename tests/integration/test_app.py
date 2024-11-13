@@ -1,3 +1,5 @@
+"""Test the integration of the Application and Config objects."""
+
 from acc.app import Application
 
 
