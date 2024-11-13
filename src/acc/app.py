@@ -15,4 +15,6 @@ class Application:
                 self.config.date = args['date']
             return {'date': self.config.date}
         elif 'ledger' in args:
-            return {'ledger': 'my_ledger'}
+            if args['ledger'] != '':
+                self.config.ledger = args['ledger']
+            return {'ledger': self.config.ledger}
