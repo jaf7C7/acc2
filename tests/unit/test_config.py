@@ -26,4 +26,7 @@ def test_state_is_persistent_between_config_instances(config):
     other_config = Config()
     assert not other_config.date == config.date
     other_config.path = config.path
-    assert other_config.date == config.date and other_config.ledger == config.ledger
+    assert (
+        other_config.date == config.date == '2020-01-01'
+        and other_config.ledger == config.ledger == 'new_ledger'
+    )

@@ -1,3 +1,6 @@
+import csv
+
+
 class Config:
     """Represents the persistent state of the application."""
 
@@ -8,30 +11,37 @@ class Config:
 
     @property
     def date(self):
-        try:
-            with open(self.path) as f:
-                self._date = f.read()
-        except FileNotFoundError:
-            self._date = '1970-01-01'
+        config = self.read()
+        self._date = config.get('date', '1970-01-01')
         return self._date
 
     @date.setter
     def date(self, new_date):
         self._date = new_date
-        with open(self.path, mode='w') as f:
-            f.write(new_date)
+        self.write()
 
     @property
     def ledger(self):
-        try:
-            with open(self.path) as f:
-                self._ledger = f.read()
-        except FileNotFoundError:
-            self._ledger = 'ledger'
+        config = self.read()
+        self._ledger = config.get('ledger', 'ledger')
         return self._ledger
 
     @ledger.setter
     def ledger(self, new_ledger):
         self._ledger = new_ledger
-        with open(self.path, mode='w') as f:
-            f.write(new_ledger)
+        self.write()
+
+    def read(self):
+        try:
+            with open(self.path, newline='') as f:
+                config = next(csv.DictReader(f))
+        except FileNotFoundError:
+            config = {}
+        return config
+
+    def write(self):
+        config = {'date': self._date, 'ledger': self._ledger}
+        with open(self.path, mode='w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=config.keys())
+            writer.writeheader()
+            writer.writerow(config)
