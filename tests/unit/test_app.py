@@ -22,3 +22,9 @@ def test_non_empty_date_param_sets_new_date(app):
 def test_empty_ledger_param_returns_current_ledger(app):
     app.config.ledger = 'my_ledger'
     assert app.run({'ledger': ''}) == {'ledger': 'my_ledger'}
+
+
+def test_non_empty_ledger_param_sets_new_ledger(app):
+    app.config.ledger = 'old_ledger'
+    app.run({'ledger': 'new_ledger'})
+    assert app.config.ledger == 'new_ledger'
