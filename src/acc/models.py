@@ -7,7 +7,8 @@ class CSVFile:
     def __init__(self, path):
         self.path = path
 
-    def read(self):
+    def read(self) -> list[dict]:
+        """Returns a list of dictionaries representing each line in the file."""
         try:
             with open(self.path, newline='') as f:
                 contents = list(csv.DictReader(f))
@@ -15,7 +16,8 @@ class CSVFile:
             contents = [{}]
         return contents
 
-    def write(self, lines):
+    def write(self, lines: list[dict]) -> None:
+        """Takes a list of dictionaries and writes each one to successive lines in the file."""
         with open(self.path, mode='w', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=lines[0].keys())
             writer.writeheader()
