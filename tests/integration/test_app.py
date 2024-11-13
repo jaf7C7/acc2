@@ -19,3 +19,10 @@ def test_set_and_get_new_date():
 def test_empty_ledger_param_returns_current_ledger():
     app = Application()
     assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
+
+
+def test_set_and_get_new_ledger():
+    app = Application()
+    app.run({'ledger': 'ledger'})
+    assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
+    os.unlink(app.config.path)
