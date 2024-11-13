@@ -3,10 +3,15 @@ class Config:
 
     def __init__(self, path='.acc.conf'):
         self.path = path
-        self._date = '1970-01-01'
+        self._date = None
 
     @property
     def date(self):
+        try:
+            with open(self.path) as f:
+                self._date = f.read()
+        except FileNotFoundError:
+            self._date = '1970-01-01'
         return self._date
 
     @date.setter

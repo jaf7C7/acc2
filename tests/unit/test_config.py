@@ -16,3 +16,11 @@ def test_setting_date_property_writes_new_value_to_file():
         date = f.read()
     assert date == '2020-01-01'
     os.unlink(config.path)
+
+
+def test_getting_date_property_reads_value_from_config_file_if_it_exists():
+    config = Config()
+    with open(config.path, mode='w') as f:
+        f.write('1999-12-31')
+    assert config.date == '1999-12-31'
+    os.unlink(config.path)
