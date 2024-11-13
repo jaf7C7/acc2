@@ -1,3 +1,4 @@
+from datetime import date
 from acc.config import Config
 
 
@@ -12,6 +13,10 @@ class Application:
     def run(self, args):
         if 'date' in args:
             if args['date'] != '':
+                try:
+                    date.fromisoformat(args['date'])
+                except ValueError as e:
+                    raise (e)
                 self.config.date = args['date']
             return {'date': self.config.date}
         elif 'ledger' in args:
