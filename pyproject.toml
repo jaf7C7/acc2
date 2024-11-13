@@ -11,3 +11,6 @@ authors = [
 description = "A simple accounting tool for tracking income/expenditures."
 readme = "README.md"
 requires-python = ">=3.8"
+
+[tool.black]
+skip-string-normalization = true
