@@ -1,17 +1,17 @@
-import csv
+from acc.models import CSVFile
 
 
-class Config:
+class Config(CSVFile):
     """Represents the persistent state of the application."""
 
     def __init__(self, path='.acc.conf'):
-        self.path = path
+        super().__init__(path)
         self._date = None
         self._ledger = None
 
     @property
     def date(self):
-        config = self.read()
+        config = self.read().pop(0)
         self._date = config.get('date', '1970-01-01')
         return self._date
 
@@ -22,7 +22,7 @@ class Config:
 
     @property
     def ledger(self):
-        config = self.read()
+        config = self.read().pop(0)
         self._ledger = config.get('ledger', 'ledger')
         return self._ledger
 
@@ -30,18 +30,3 @@ class Config:
     def ledger(self, new_ledger):
         self._ledger = new_ledger
         self.write([{'date': self._date, 'ledger': self._ledger}])
-
-    def read(self):
-        try:
-            with open(self.path, newline='') as f:
-                config = next(csv.DictReader(f))
-        except FileNotFoundError:
-            config = {}
-        return config
-
-    def write(self, lines):
-        with open(self.path, mode='w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=lines[0].keys())
-            writer.writeheader()
-            for line in lines:
-                writer.writerow(line)
