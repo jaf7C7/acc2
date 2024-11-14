@@ -28,4 +28,13 @@ class Application:
             return {'ledger': self.config.ledger}
 
         elif 'transaction' in args:
-            self.ledger.append(args['transaction'])
+            try:
+                id = len(self.ledger.read())
+            except FileNotFoundError:
+                id = 0
+            transaction = {
+                'id': id,
+                'date': self.config.date,
+                **args['transaction'],
+            }
+            self.ledger.write([transaction], mode='a')

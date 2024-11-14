@@ -16,9 +16,9 @@ class CSVFile:
             contents = [{}]
         return contents
 
-    def write(self, lines: list[dict]) -> None:
+    def write(self, lines: list[dict], mode='w') -> None:
         """Takes a list of dictionaries and writes each one to successive lines in the file."""
-        with open(self.path, mode='w', newline='') as f:
+        with open(self.path, mode=mode, newline='') as f:
             writer = csv.DictWriter(f, fieldnames=lines[0].keys())
             writer.writeheader()
             for line in lines:

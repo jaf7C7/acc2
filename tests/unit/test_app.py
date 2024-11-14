@@ -1,11 +1,11 @@
 import pytest
-from unittest.mock import Mock
+from unittest.mock import MagicMock
 from acc.app import Application
 
 
 @pytest.fixture
 def app():
-    return Application(Mock(), ledger_type=Mock())
+    return Application(MagicMock(), ledger_type=MagicMock())
 
 
 def test_empty_date_param_returns_current_date(app):
@@ -42,4 +42,13 @@ def test_can_record_transactions(app):
         'description': 'Toilet paper (multipack).',
     }
     app.run({'transaction': transaction})
-    app.ledger.append.assert_called_with(transaction)
+    app.ledger.write.assert_called_with(
+        [
+            {
+                'id': 0,
+                'date': app.config.date,
+                **transaction,
+            }
+        ],
+        mode='a',
+    )
