@@ -1,28 +1,38 @@
-"""Test the integration of the Application and Config objects."""
+"""Test the integration of the Application, Config and Ledger objects."""
 
 import os
+import pytest
 from acc.app import Application
 
 
-def test_empty_date_param_returns_current_date():
+@pytest.fixture
+def app(tmp_path):
+    config_path = os.path.join(tmp_path, 'test_config')
+    ledger_path = os.path.join(tmp_path, 'test_ledger')
     app = Application()
+    app.config.path = config_path
+    app.ledger.path = ledger_path
+    yield app
+    for f in config_path, ledger_path:
+        try:
+            os.unlink(f)
+        except FileNotFoundError:
+            pass
+
+
+def test_empty_date_param_returns_current_date(app):
     assert app.run({'date': ''}) == {'date': '1970-01-01'}
 
 
-def test_set_and_get_new_date():
-    app = Application()
+def test_set_and_get_new_date(app):
     app.run({'date': '2020-01-01'})
     assert app.run({'date': ''}) == {'date': '2020-01-01'}
-    os.unlink(app.config.path)
 
 
-def test_empty_ledger_param_returns_current_ledger():
-    app = Application()
+def test_empty_ledger_param_returns_current_ledger(app):
     assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
 
 
-def test_set_and_get_new_ledger():
-    app = Application()
+def test_set_and_get_new_ledger(app):
     app.run({'ledger': 'ledger'})
     assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
-    os.unlink(app.config.path)
