@@ -9,11 +9,8 @@ class CSVFile:
 
     def read(self) -> list[dict]:
         """Returns a list of dictionaries representing each line in the file."""
-        try:
-            with open(self.path, newline='') as f:
-                contents = list(csv.DictReader(f))
-        except FileNotFoundError:
-            contents = [{}]
+        with open(self.path, newline='') as f:
+            contents = list(csv.DictReader(f))
         return contents
 
     def write(self, lines: list[dict], mode='w') -> None:
