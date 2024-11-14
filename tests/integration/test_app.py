@@ -36,3 +36,26 @@ def test_empty_ledger_param_returns_current_ledger(app):
 def test_set_and_get_new_ledger(app):
     app.run({'ledger': 'ledger'})
     assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
+
+
+def test_add_and_report_transactions(app):
+    app.run(
+        {
+            'transaction': {
+                'type': 'credit',
+                'amount': 1099,
+                'description': 'Gift from Grandma.',
+            }
+        }
+    )
+    assert app.run({'report': ''}) == {
+        'transactions': [
+            {
+                'id': '0',
+                'date': str(app.config.date),
+                'type': 'credit',
+                'amount': '1099',
+                'description': 'Gift from Grandma.',
+            }
+        ]
+    }

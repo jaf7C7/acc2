@@ -1,11 +1,12 @@
 from datetime import date
 from acc.config import Config
+from acc.models import CSVFile
 
 
 class Application:
     """The central object which handles the main application logic."""
 
-    def __init__(self, config=None, ledger_type=None):
+    def __init__(self, config=None, ledger_type=CSVFile):
         if config is None:
             config = Config()
         self.config = config
@@ -38,3 +39,6 @@ class Application:
                 **args['transaction'],
             }
             self.ledger.write([transaction], mode='a')
+
+        elif 'report' in args:
+            return {'transactions': self.ledger.read()}
