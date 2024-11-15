@@ -31,21 +31,16 @@ class Application:
     def set_ledger(self, new_ledger):
         self.ledger_path = new_ledger
 
+    def add_transaction(self, transaction):
+        ledger = self.ledger_type(self.ledger_path)
+        try:
+            id = len(ledger.read())
+        except FileNotFoundError:
+            id = 0
+        ledger.write([{'id': id, 'date': self.date, **transaction}], mode='a')
+
     def run(self, args):
         """Runs the application with the given arguments."""
-        if 'transaction' in args:
-            ledger = self.ledger_type(self.ledger_path)
-            try:
-                id = len(ledger.read())
-            except FileNotFoundError:
-                id = 0
-            transaction = {
-                'id': id,
-                'date': self.date,
-                **args['transaction'],
-            }
-            ledger.write([transaction], mode='a')
-
-        elif 'transactions' in args:
+        if 'transactions' in args:
             ledger = self.ledger_type(self.ledger_path)
             return {'transactions': ledger.read()}

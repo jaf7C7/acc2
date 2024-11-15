@@ -31,13 +31,13 @@ def test_set_ledger_sets_new_ledger_path(app):
     assert app.get_ledger() == {'ledger': 'new_ledger'}
 
 
-def test_can_record_transactions(app):
+def test_add_transactions_writes_new_transaction_to_ledger(app):
     transaction = {
         'type': 'debit',
         'amount': 1099,
         'description': 'Toilet paper (multipack).',
     }
-    app.run({'transaction': transaction})
+    app.add_transaction(transaction)
     ledger = app.ledger_type(app.ledger_path)
     ledger.write.assert_called_with(
         [
