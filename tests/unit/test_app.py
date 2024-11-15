@@ -49,3 +49,10 @@ def test_add_transactions_writes_new_transaction_to_ledger(app):
         ],
         mode='a',
     )
+
+
+def test_get_transactions_returns_list_of_recorded_transactions(app):
+    ledger = app.ledger_type(app.ledger_path)
+    attrs = {'read.side_effect': lambda: ['t1', 't2', '...', 'tN']}
+    ledger.configure_mock(**attrs)
+    assert app.get_transactions() == {'transactions': ['t1', 't2', '...', 'tN']}

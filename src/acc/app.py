@@ -39,6 +39,10 @@ class Application:
             id = 0
         ledger.write([{'id': id, 'date': self.date, **transaction}], mode='a')
 
+    def get_transactions(self):
+        ledger = self.ledger_type(self.ledger_path)
+        return {'transactions': ledger.read()}
+
     def run(self, args):
         """Runs the application with the given arguments."""
         if 'transactions' in args:
