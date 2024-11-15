@@ -1,7 +1,7 @@
+from unittest.mock import MagicMock
 import pytest
 from flask import g
 from acc.api import api, get_app
-from acc.app import Application
 
 
 @pytest.fixture
@@ -12,7 +12,7 @@ def client():
 @pytest.fixture
 def app():
     with api.app_context():
-        g.app = Application()
+        g.app = MagicMock()
         yield g.app
 
 
@@ -23,4 +23,5 @@ def test_get_app():
 
 
 def test_get_date_endpoint(app, client):
-    assert client.get('/date').get_json() == app.run({'date': ''})
+    client.get('/date')
+    app.run.assert_called_with({'date': ''})
