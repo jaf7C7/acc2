@@ -43,6 +43,6 @@ class Application:
             }
             ledger.write([transaction], mode='a')
 
-        elif 'report' in args:
+        elif 'transactions' in args:
             ledger = self.ledger_type(self.ledger_path)
             return {'transactions': ledger.read()}

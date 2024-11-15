@@ -46,7 +46,7 @@ def test_add_and_report_transactions(app):
             }
         }
     )
-    assert app.run({'report': ''}) == {
+    assert app.run({'transactions': ''}) == {
         'transactions': [
             {
                 'id': '0',
