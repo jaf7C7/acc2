@@ -19,7 +19,7 @@ def test_set_date_sets_current_app_date(app):
 
 def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
     with pytest.raises(ValueError):
-        app.run({'date': '2000/01/01'})
+        app.set_date('2000/01/01')
 
 
 def test_empty_ledger_param_returns_current_ledger(app):
