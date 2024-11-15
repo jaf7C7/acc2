@@ -22,11 +22,11 @@ def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
         app.set_date('2000/01/01')
 
 
-def test_empty_ledger_param_returns_current_ledger(app):
+def test_get_ledger_returns_current_ledger_path(app):
     assert app.get_ledger() == {'ledger': app.ledger_path}
 
 
-def test_non_empty_ledger_param_sets_new_ledger(app):
+def test_set_ledger_sets_new_ledger_path(app):
     app.set_ledger('new_ledger')
     assert app.get_ledger() == {'ledger': 'new_ledger'}
 
