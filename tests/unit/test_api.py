@@ -25,3 +25,8 @@ def test_get_app():
 def test_get_date_endpoint(app, client):
     client.get('/date')
     app.run.assert_called_with({'date': ''})
+
+
+def test_put_date_endpoint(app, client):
+    client.put('/date', json={'date': '2020-01-01'})
+    app.run.assert_called_with({'date': '2020-01-01'})

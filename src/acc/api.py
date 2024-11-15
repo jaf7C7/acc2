@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, request
 from acc.app import Application
 
 
@@ -11,7 +11,11 @@ def get_app():
     return g.app
 
 
-@api.route('/date')
+@api.route('/date', methods=['GET', 'PUT'])
 def get_date():
     app = get_app()
-    return app.run({'date': ''})
+    if request.method == 'PUT':
+        args = request.get_json()
+    else:
+        args = {'date': ''}
+    return app.run(args)
