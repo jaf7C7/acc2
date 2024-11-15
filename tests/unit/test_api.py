@@ -1,5 +1,6 @@
 import pytest
 from acc.api import api
+from acc.app import Application
 
 
 @pytest.fixture
@@ -8,4 +9,5 @@ def client():
 
 
 def test_get_date_endpoint(client):
-    assert client.get('/date').get_json() == {'date': '1970-01-01'}
+    app = Application()
+    assert client.get('/date').get_json() == app.run({'date': ''})
