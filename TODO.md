@@ -1,5 +1,6 @@
 # TODO:
 
+- [ ] Add unit tests for `CSVFile`
 - [ ] `cli` module:
     - [ ] `parse_args()`: Parses command-line args into a dict consumable by `Application.run()`
     - [ ] `run()`: Creates an application instance, runs `parse_args(sys.argv[1:])`,
@@ -17,5 +18,5 @@
         - [ ] `POST` new transaction `{'type': <debit_or_credit>, 'amount': <amount>, 'description': <description>}`
 
 - [ ] Make `Application.run()` robust against bad arguments (throw exceptions etc.)
-- [ ] Put `date` and `ledger_path` properties directly into `Application` class and get rid of `Config` class, `CSVFile` is sufficient.
+- [x] Put `date` and `ledger_path` properties directly into `Application` class and get rid of `Config` class, `CSVFile` is sufficient.
 - [ ] Extend reporting (different date ranges, get balance etc.)
