@@ -25,14 +25,15 @@ class Application:
         else:
             self.date = new_date
 
+    def get_ledger(self):
+        return {'ledger': self.ledger_path}
+
+    def set_ledger(self, new_ledger):
+        self.ledger_path = new_ledger
+
     def run(self, args):
         """Runs the application with the given arguments."""
-        if 'ledger' in args:
-            if args['ledger'] != '':
-                self.ledger_path = args['ledger']
-            return {'ledger': self.ledger_path}
-
-        elif 'transaction' in args:
+        if 'transaction' in args:
             ledger = self.ledger_type(self.ledger_path)
             try:
                 id = len(ledger.read())

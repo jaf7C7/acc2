@@ -23,14 +23,12 @@ def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
 
 
 def test_empty_ledger_param_returns_current_ledger(app):
-    app.ledger_path = 'my_ledger'
-    assert app.run({'ledger': ''}) == {'ledger': 'my_ledger'}
+    assert app.get_ledger() == {'ledger': app.ledger_path}
 
 
 def test_non_empty_ledger_param_sets_new_ledger(app):
-    app.ledger_path = 'old_ledger'
-    app.run({'ledger': 'new_ledger'})
-    assert app.ledger_path == 'new_ledger'
+    app.set_ledger('new_ledger')
+    assert app.get_ledger() == {'ledger': 'new_ledger'}
 
 
 def test_can_record_transactions(app):
