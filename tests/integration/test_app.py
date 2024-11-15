@@ -1,5 +1,3 @@
-"""Test the integration of the Application, Config and Ledger objects."""
-
 import os
 import pytest
 from acc.app import Application
@@ -10,8 +8,8 @@ def app(tmp_path):
     config_path = os.path.join(tmp_path, 'test_config')
     ledger_path = os.path.join(tmp_path, 'test_ledger')
     app = Application()
-    app.config.path = config_path
-    app.ledger.path = ledger_path
+    app.config_path = config_path
+    app.ledger_path = ledger_path
     yield app
     for f in config_path, ledger_path:
         try:
@@ -21,7 +19,7 @@ def app(tmp_path):
 
 
 def test_empty_date_param_returns_current_date(app):
-    assert app.run({'date': ''}) == {'date': '1970-01-01'}
+    assert app.run({'date': ''}) == {'date': app.date}
 
 
 def test_set_and_get_new_date(app):
@@ -30,7 +28,7 @@ def test_set_and_get_new_date(app):
 
 
 def test_empty_ledger_param_returns_current_ledger(app):
-    assert app.run({'ledger': ''}) == {'ledger': 'ledger'}
+    assert app.run({'ledger': ''}) == {'ledger': app.ledger_path}
 
 
 def test_set_and_get_new_ledger(app):
@@ -52,7 +50,7 @@ def test_add_and_report_transactions(app):
         'transactions': [
             {
                 'id': '0',
-                'date': str(app.config.date),
+                'date': str(app.date),
                 'type': 'credit',
                 'amount': '1099',
                 'description': 'Gift from Grandma.',
