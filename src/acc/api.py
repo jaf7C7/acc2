@@ -11,27 +11,21 @@ def get_app():
     return g.app
 
 
-@api.get('/date')
-def get_date():
+@api.route('/date', methods=['GET', 'PUT'])
+def date():
     app = get_app()
-    return app.get_date()
+    if request.method == 'PUT':
+        new_date = request.get_json()['date']
+        app.set_date(new_date)
+    else:
+        return app.get_date()
 
 
-@api.put('/date')
-def set_date():
+@api.route('/ledger', methods=['GET', 'PUT'])
+def ledger():
     app = get_app()
-    new_date = request.get_json()['date']
-    app.set_date(new_date)
-
-
-@api.get('/ledger')
-def get_ledger():
-    app = get_app()
-    return app.get_ledger()
-
-
-@api.put('/ledger')
-def set_ledger():
-    app = get_app()
-    new_ledger = request.get_json()['ledger']
-    app.set_ledger(new_ledger)
+    if request.method == 'PUT':
+        new_ledger = request.get_json()['ledger']
+        app.set_ledger(new_ledger)
+    else:
+        return app.get_ledger()
