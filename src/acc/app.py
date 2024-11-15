@@ -27,16 +27,7 @@ class Application:
 
     def run(self, args):
         """Runs the application with the given arguments."""
-        if 'date' in args:
-            if args['date'] != '':
-                try:
-                    date.fromisoformat(args['date'])
-                except ValueError as e:
-                    raise (e)
-                self.date = args['date']
-            return {'date': self.date}
-
-        elif 'ledger' in args:
+        if 'ledger' in args:
             if args['ledger'] != '':
                 self.ledger_path = args['ledger']
             return {'ledger': self.ledger_path}
