@@ -42,9 +42,3 @@ class Application:
     def get_transactions(self):
         ledger = self.ledger_type(self.ledger_path)
         return {'transactions': ledger.read()}
-
-    def run(self, args):
-        """Runs the application with the given arguments."""
-        if 'transactions' in args:
-            ledger = self.ledger_type(self.ledger_path)
-            return {'transactions': ledger.read()}
