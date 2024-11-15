@@ -14,6 +14,13 @@ class Application:
         self.ledger_type = ledger_type
         self.date = '1970-01-01'
 
+    def get_date(self):
+        return {'date': self.date}
+
+    def set_date(self, new_date):
+        date.fromisoformat(new_date)  # Raises exception if date is not valid.
+        self.date = new_date
+
     def run(self, args):
         """Runs the application with the given arguments."""
         if 'date' in args:

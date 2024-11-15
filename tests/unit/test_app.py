@@ -8,15 +8,13 @@ def app():
     return Application(config_type=MagicMock(), ledger_type=MagicMock())
 
 
-def test_empty_date_param_returns_current_date(app):
-    app.date = '1970-01-01'
-    assert app.run({'date': ''}) == {'date': '1970-01-01'}
+def test_get_date_returns_current_app_date(app):
+    assert app.get_date() == {'date': app.date}
 
 
-def test_non_empty_date_param_sets_new_date(app):
-    app.date = '1970-01-01'
-    app.run({'date': '1999-12-31'})
-    assert app.date == '1999-12-31'
+def test_set_date_sets_current_app_date(app):
+    app.set_date('1999-12-31')
+    assert app.get_date() == {'date': '1999-12-31'}
 
 
 def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
