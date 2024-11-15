@@ -29,3 +29,13 @@ def ledger():
         app.set_ledger(new_ledger)
     else:
         return app.get_ledger()
+
+
+@api.route('/transactions', methods=['GET', 'POST'])
+def transactions():
+    app = get_app()
+    if request.method == 'POST':
+        transaction = request.get_json()
+        app.add_transaction(transaction)
+    else:
+        return app.get_transactions()

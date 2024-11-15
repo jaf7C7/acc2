@@ -40,3 +40,14 @@ def test_get_ledger_endpoint(app, client):
 def test_put_ledger_endpoint(app, client):
     client.put('/ledger', json={'ledger': 'new_ledger'})
     app.set_ledger.assert_called_with('new_ledger')
+
+
+def test_get_transaction_endpoint(app, client):
+    client.get('/transactions')
+    app.get_transactions.assert_called()
+
+
+def test_post_transactions_endpoint(app, client):
+    transaction = {'type': 'debit', 'amount': 1099, 'description': 'Maltesers'}
+    client.post('/transactions', json=transaction)
+    app.add_transaction.assert_called_with(transaction)
