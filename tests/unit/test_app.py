@@ -56,3 +56,14 @@ def test_get_transactions_returns_list_of_recorded_transactions(app):
     attrs = {'read.side_effect': lambda: ['t1', 't2', '...', 'tN']}
     ledger.configure_mock(**attrs)
     assert app.get_transactions() == {'transactions': ['t1', 't2', '...', 'tN']}
+
+
+def test_FileNotFoundError_gives_id_0(app):
+    ledger = app.ledger_type(app.ledger_path)
+    attrs = {'read.side_effect': FileNotFoundError}
+    ledger.configure_mock(**attrs)
+    transaction = {'type': 'debit', 'amount': 1099, 'description': 'Soup'}
+    app.add_transaction(transaction)
+    ledger.write.assert_called_with(
+        [{'id': 0, 'date': app.date, **transaction}], mode='a'
+    )
