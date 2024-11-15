@@ -18,8 +18,12 @@ class Application:
         return {'date': self.date}
 
     def set_date(self, new_date):
-        date.fromisoformat(new_date)  # Raises exception if date is not valid.
-        self.date = new_date
+        try:
+            date.fromisoformat(new_date)
+        except Exception as e:
+            raise e
+        else:
+            self.date = new_date
 
     def run(self, args):
         """Runs the application with the given arguments."""
