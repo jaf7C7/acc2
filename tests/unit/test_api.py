@@ -30,3 +30,13 @@ def test_get_date_endpoint(app, client):
 def test_put_date_endpoint(app, client):
     client.put('/date', json={'date': '2020-01-01'})
     app.run.assert_called_with({'date': '2020-01-01'})
+
+
+def test_get_ledger_endpoint(app, client):
+    client.get('/ledger')
+    app.run.assert_called_with({'ledger': ''})
+
+
+def test_put_ledger_endpoint(app, client):
+    client.put('/ledger', json={'ledger': 'new_ledger'})
+    app.run.assert_called_with({'ledger': 'new_ledger'})

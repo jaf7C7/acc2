@@ -11,11 +11,11 @@ def get_app():
     return g.app
 
 
-@api.route('/date', methods=['GET', 'PUT'])
-def get_date():
+@api.route('/<endpoint>', methods=['GET', 'PUT'])
+def respond(endpoint):
     app = get_app()
     if request.method == 'PUT':
         args = request.get_json()
     else:
-        args = {'date': ''}
+        args = {endpoint: ''}
     return app.run(args)
