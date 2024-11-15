@@ -1,5 +1,5 @@
 from datetime import date
-from acc.models import CSVFile
+from acc.csvfile import CSVFile
 
 
 class Application:
