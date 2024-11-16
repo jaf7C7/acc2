@@ -25,14 +25,11 @@ class Application:
         else:
             self._date = new_date
 
-    def get_ledger(self):
-        return {'ledger': self.ledger_path}
-
-    def set_ledger(self, new_ledger):
-        self.ledger_path = new_ledger
+    def create_ledger(self):
+        return self.ledger_type(self.ledger_path)
 
     def add_transaction(self, transaction):
-        ledger = self.ledger_type(self.ledger_path)
+        ledger = self.create_ledger()
         try:
             id = len(ledger.read())
         except FileNotFoundError:
@@ -40,5 +37,5 @@ class Application:
         ledger.write([{'id': id, 'date': self.get_date(), **transaction}], mode='a')
 
     def get_transactions(self):
-        ledger = self.ledger_type(self.ledger_path)
+        ledger = self.create_ledger()
         return {'transactions': ledger.read()}
