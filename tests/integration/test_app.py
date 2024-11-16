@@ -36,7 +36,7 @@ def test_add_and_get_transaction(app):
         'transactions': [
             {
                 'id': '0',
-                'date': str(app.date),
+                'date': str(app.get_date()),
                 **transaction,
             }
         ]

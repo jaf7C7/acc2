@@ -8,10 +8,6 @@ def app():
     return Application(config_type=MagicMock(), ledger_type=MagicMock())
 
 
-def test_get_date_returns_current_app_date(app):
-    assert app.get_date() == {'date': app.date}
-
-
 def test_set_date_sets_current_app_date(app):
     app.set_date('1999-12-31')
     assert app.get_date() == {'date': '1999-12-31'}
@@ -43,7 +39,7 @@ def test_add_transactions_writes_new_transaction_to_ledger(app):
         [
             {
                 'id': 0,
-                'date': app.date,
+                'date': app.get_date(),
                 **transaction,
             }
         ],
@@ -65,5 +61,5 @@ def test_FileNotFoundError_gives_id_0(app):
     transaction = {'type': 'debit', 'amount': 1099, 'description': 'Soup'}
     app.add_transaction(transaction)
     ledger.write.assert_called_with(
-        [{'id': 0, 'date': app.date, **transaction}], mode='a'
+        [{'id': 0, 'date': app.get_date(), **transaction}], mode='a'
     )

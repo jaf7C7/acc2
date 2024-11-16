@@ -12,10 +12,10 @@ class Application:
         self.config_type = config_type
         self.ledger_path = 'ledger'
         self.ledger_type = ledger_type
-        self.date = '1970-01-01'
+        self._date = '1970-01-01'
 
     def get_date(self):
-        return {'date': self.date}
+        return {'date': self._date}
 
     def set_date(self, new_date):
         try:
@@ -23,7 +23,7 @@ class Application:
         except Exception as e:
             raise e
         else:
-            self.date = new_date
+            self._date = new_date
 
     def get_ledger(self):
         return {'ledger': self.ledger_path}
@@ -37,7 +37,7 @@ class Application:
             id = len(ledger.read())
         except FileNotFoundError:
             id = 0
-        ledger.write([{'id': id, 'date': self.date, **transaction}], mode='a')
+        ledger.write([{'id': id, 'date': self.get_date(), **transaction}], mode='a')
 
     def get_transactions(self):
         ledger = self.ledger_type(self.ledger_path)
