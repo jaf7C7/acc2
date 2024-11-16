@@ -15,7 +15,7 @@ class Application:
         self._date = '1970-01-01'
 
     def get_date(self):
-        return {'date': self._date}
+        return self._date
 
     def set_date(self, new_date):
         try:

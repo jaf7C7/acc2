@@ -10,7 +10,7 @@ def app():
 
 def test_set_date_sets_current_app_date(app):
     app.set_date('1999-12-31')
-    assert app.get_date() == {'date': '1999-12-31'}
+    assert app.get_date() == '1999-12-31'
 
 
 def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
