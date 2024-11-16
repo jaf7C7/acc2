@@ -1,12 +1,12 @@
 # TODO:
 
 - [x] Add unit tests for `CSVFile`
+- [ ] Make `date` and `ledger_path` non-public attributes of `Application`
 - [ ] `cli` module:
-    - [ ] `parse_args()`: Parses command-line args into a dict consumable by `Application.run()`
-    - [ ] `run()`: Creates an application instance, runs `parse_args(sys.argv[1:])`,
-      and passes that to `Application.run()`, handles any exceptions, and returns
-      an integer.
-- [ ] `api` module:
+    - [ ] `parse_args()`: Parses command-line args
+    - [ ] `_run()`: Creates an application instance, runs `parse_args(sys.argv[1:])`, calls corresponding `Application` method
+    - [ ] `run()`: Calls `_run()`, handles any exceptions, and returns an integer exit code.
+- [x] `api` module:
     - [x] `/date` endpoint:
         - [x] `GET` returns `{'date': <current_date>}`
         - [x] `PUT` accepts json data `{'date': <new_date>}`
