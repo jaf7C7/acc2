@@ -18,7 +18,7 @@ def date():
         new_date = request.get_json()['date']
         app.set_date(new_date)
     else:
-        return app.get_date()
+        return {'date': app.get_date()}
 
 
 @api.route('/ledger', methods=['GET', 'PUT'])
@@ -26,9 +26,9 @@ def ledger():
     app = get_app()
     if request.method == 'PUT':
         new_ledger = request.get_json()['ledger']
-        app.set_ledger(new_ledger)
+        app.ledger_path = new_ledger
     else:
-        return app.get_ledger()
+        return {'ledger': app.ledger_path}
 
 
 @api.route('/transactions', methods=['GET', 'POST'])
@@ -38,4 +38,4 @@ def transactions():
         transaction = request.get_json()
         app.add_transaction(transaction)
     else:
-        return app.get_transactions()
+        return {'transactions': app.get_transactions()}
