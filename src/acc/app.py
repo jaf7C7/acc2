@@ -38,4 +38,4 @@ class Application:
 
     def get_transactions(self):
         ledger = self.create_ledger()
-        return {'transactions': ledger.read()}
+        return ledger.read()

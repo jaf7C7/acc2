@@ -47,7 +47,7 @@ def test_get_transactions_returns_list_of_recorded_transactions(app):
     ledger = app.create_ledger()
     attrs = {'read.side_effect': lambda: ['t1', 't2', '...', 'tN']}
     ledger.configure_mock(**attrs)
-    assert app.get_transactions() == {'transactions': ['t1', 't2', '...', 'tN']}
+    assert app.get_transactions() == ['t1', 't2', '...', 'tN']
 
 
 def test_FileNotFoundError_gives_id_0(app):
