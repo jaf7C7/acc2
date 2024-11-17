@@ -1,5 +1,6 @@
+from unittest.mock import Mock
 import pytest
-from acc.cli import parse_args
+from acc.cli import parse_args, run_app
 
 
 @pytest.mark.parametrize(
@@ -27,3 +28,8 @@ def test_transaction_parser(command):
         and args.amount == '1099'
         and args.description == 'Maltesers'
     )
+
+
+def test_run_app_calls_get_date():
+    app = Mock()
+    assert run_app(['date'], app=app) == app.get_date()
