@@ -23,7 +23,10 @@ def parse_args(argv):
 
 
 def run_app(args, app):
-    if args.date is not None:
-        app.set_date(args.date)
-    else:
-        return app.get_date()
+    if args.command == 'date':
+        if args.date is not None:
+            app.set_date(args.date)
+        else:
+            return app.get_date()
+    elif args.command == 'ledger':
+        return app.ledger_path

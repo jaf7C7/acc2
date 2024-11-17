@@ -32,7 +32,7 @@ def test_transaction_parser(command):
 
 def test_run_app_calls_get_date():
     app = Mock()
-    args = Mock(command='date')
+    args = Mock(command='date', date=None)
     assert run_app(args, app=app) == app.get_date()
 
 
@@ -41,3 +41,9 @@ def test_run_app_calls_set_date():
     args = Mock(command='date', date='2000-01-01')
     run_app(args, app=app)
     app.set_date.assert_called_with('2000-01-01')
+
+
+def test_run_app_returns_ledger_path():
+    app = Mock()
+    args = Mock(command='ledger')
+    assert run_app(args, app=app) == app.ledger_path
