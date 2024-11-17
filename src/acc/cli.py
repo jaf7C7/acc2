@@ -23,4 +23,7 @@ def parse_args(argv):
 
 
 def run_app(args, app):
-    return app.get_date()
+    if args.date is not None:
+        app.set_date(args.date)
+    else:
+        return app.get_date()
