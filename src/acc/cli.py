@@ -35,5 +35,12 @@ def run_app(args, app):
             app.ledger_path = args.ledger
         else:
             return app.ledger_path
+    elif args.command in ('credit', 'debit'):
+        transaction = {
+            'type': args.command,
+            'amount': args.amount,
+            'description': args.description,
+        }
+        app.add_transaction(transaction)
     elif args.command == 'report':
         return app.get_transactions()

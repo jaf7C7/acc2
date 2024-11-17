@@ -62,6 +62,15 @@ def test_run_app_sets_ledger_path(app):
     assert app.ledger_path == 'new_ledger'
 
 
+@pytest.mark.parametrize('command', ('debit', 'credit'))
+def test_run_app_calls_add_transaction(command, app):
+    args = Mock(command=command, amount='1099', description='Marmite')
+    run_app(args, app=app)
+    app.add_transaction.assert_called_with(
+        {'type': command, 'amount': '1099', 'description': 'Marmite'}
+    )
+
+
 def test_run_app_calls_get_transactions(app):
     args = Mock(command='report')
     assert run_app(args, app=app) == app.get_transactions()
