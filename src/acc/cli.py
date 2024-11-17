@@ -19,6 +19,8 @@ def parse_args(argv):
         'debit', aliases=['credit'], parents=[transaction_parser]
     )
 
+    report_parser = subparsers.add_parser('report')
+
     return parser.parse_args(argv)
 
 

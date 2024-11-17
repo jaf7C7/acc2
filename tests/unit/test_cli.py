@@ -30,6 +30,11 @@ def test_transaction_parser(command):
     )
 
 
+def test_report_parser():
+    args = parse_args(['report'])
+    assert args.command == 'report'
+
+
 @pytest.fixture
 def app():
     return Mock()
