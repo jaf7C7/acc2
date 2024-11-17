@@ -17,3 +17,13 @@ def test_date_parser_without_new_date(argv, expected_date):
 def test_ledger_parser_without_new_ledger(argv, expected_ledger):
     args = parse_args(argv)
     assert args.command == 'ledger' and args.ledger is expected_ledger
+
+
+@pytest.mark.parametrize('command', ('debit', 'credit'))
+def test_transaction_parser(command):
+    args = parse_args([command, '1099', 'Maltesers'])
+    assert (
+        args.command == command
+        and args.amount == '1099'
+        and args.description == 'Maltesers'
+    )
