@@ -22,5 +22,5 @@ def parse_args(argv):
     return parser.parse_args(argv)
 
 
-def run_app(argv, app):
+def run_app(args, app):
     return app.get_date()

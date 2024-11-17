@@ -32,4 +32,5 @@ def test_transaction_parser(command):
 
 def test_run_app_calls_get_date():
     app = Mock()
-    assert run_app(['date'], app=app) == app.get_date()
+    args = Mock(command='date')
+    assert run_app(args, app=app) == app.get_date()
