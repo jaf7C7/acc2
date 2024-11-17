@@ -60,3 +60,8 @@ def test_run_app_sets_ledger_path(app):
     args = Mock(command='ledger', ledger='new_ledger')
     run_app(args, app=app)
     assert app.ledger_path == 'new_ledger'
+
+
+def test_run_app_calls_get_transactions(app):
+    args = Mock(command='report')
+    assert run_app(args, app=app) == app.get_transactions()

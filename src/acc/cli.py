@@ -35,3 +35,5 @@ def run_app(args, app):
             app.ledger_path = args.ledger
         else:
             return app.ledger_path
+    elif args.command == 'report':
+        return app.get_transactions()
