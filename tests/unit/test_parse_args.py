@@ -1,21 +1,19 @@
+import pytest
 from acc.cli import parse_args
 
 
-def test_date_parser_without_new_date():
-    args = parse_args(['date'])
-    assert args.command == 'date' and args.date is None
+@pytest.mark.parametrize(
+    'argv, expected_date', ((['date'], None), (['date', '2000-01-01'], '2000-01-01'))
+)
+def test_date_parser_without_new_date(argv, expected_date):
+    args = parse_args(argv)
+    assert args.command == 'date' and args.date is expected_date
 
 
-def test_date_parser_with_new_date():
-    args = parse_args(['date', '2000-01-01'])
-    assert args.command == 'date' and args.date == '2000-01-01'
-
-
-def test_ledger_parser_without_new_ledger():
-    args = parse_args(['ledger'])
-    assert args.command == 'ledger' and args.ledger is None
-
-
-def test_ledger_parser_with_new_ledger():
-    args = parse_args(['ledger', 'new_ledger'])
-    assert args.command == 'ledger' and args.ledger == 'new_ledger'
+@pytest.mark.parametrize(
+    'argv, expected_ledger',
+    ((['ledger'], None), (['ledger', 'new_ledger'], 'new_ledger')),
+)
+def test_ledger_parser_without_new_ledger(argv, expected_ledger):
+    args = parse_args(argv)
+    assert args.command == 'ledger' and args.ledger is expected_ledger
