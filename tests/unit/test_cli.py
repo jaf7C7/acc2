@@ -47,5 +47,11 @@ def test_run_app_calls_set_date(app):
 
 
 def test_run_app_returns_ledger_path(app):
-    args = Mock(command='ledger')
+    args = Mock(command='ledger', ledger=None)
     assert run_app(args, app=app) == app.ledger_path
+
+
+def test_run_app_sets_ledger_path(app):
+    args = Mock(command='ledger', ledger='new_ledger')
+    run_app(args, app=app)
+    assert app.ledger_path == 'new_ledger'

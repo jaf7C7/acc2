@@ -29,4 +29,7 @@ def run_app(args, app):
         else:
             return app.get_date()
     elif args.command == 'ledger':
-        return app.ledger_path
+        if args.ledger is not None:
+            app.ledger_path = args.ledger
+        else:
+            return app.ledger_path
