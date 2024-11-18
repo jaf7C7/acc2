@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 
 
 def parse_args(argv):
-    parser = ArgumentParser()
+    parser = ArgumentParser(exit_on_error=False)
     subparsers = parser.add_subparsers(dest='command')
 
     date_parser = subparsers.add_parser('date')
@@ -12,11 +12,11 @@ def parse_args(argv):
     ledger_parser.add_argument('ledger', nargs='?')
 
     transaction_parser = ArgumentParser(add_help=False)
-    transaction_parser.add_argument('amount')
+    transaction_parser.add_argument('amount', type=int)
     transaction_parser.add_argument('description')
 
     debit_credit_parser = subparsers.add_parser(
-        'debit', aliases=['credit'], parents=[transaction_parser]
+        'debit', aliases=['credit'], parents=[transaction_parser], exit_on_error=False
     )
 
     report_parser = subparsers.add_parser('report')

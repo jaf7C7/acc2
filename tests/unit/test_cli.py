@@ -30,6 +30,11 @@ def test_transaction_parser(command):
     )
 
 
+def test_non_integer_amount_raises_exception():
+    with pytest.raises(Exception):
+        parse_args(['debit', 'ten ninety nine', 'Maltesers'])
+
+
 def test_report_parser():
     args = parse_args(['report'])
     assert args.command == 'report'
