@@ -17,12 +17,12 @@ def app(tmp_path):
 
 def test_set_and_get_new_date(app):
     app.set_date('2020-01-01')
-    assert app.get_date() == {'date': '2020-01-01'}
+    assert app.get_date() == '2020-01-01'
 
 
 def test_set_and_get_new_ledger(app):
-    app.set_ledger('ledger')
-    assert app.get_ledger() == {'ledger': 'ledger'}
+    app.ledger_path = 'ledger'
+    assert app.ledger_path == 'ledger'
 
 
 def test_add_and_get_transaction(app):
@@ -32,12 +32,10 @@ def test_add_and_get_transaction(app):
         'description': 'Gift from Grandma.',
     }
     app.add_transaction(transaction)
-    assert app.get_transactions() == {
-        'transactions': [
-            {
-                'id': '0',
-                'date': str(app.get_date()),
-                **transaction,
-            }
-        ]
-    }
+    assert app.get_transactions() == [
+        {
+            'id': '0',
+            'date': str(app.get_date()),
+            **transaction,
+        }
+    ]
