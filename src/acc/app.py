@@ -34,7 +34,8 @@ class Application:
             id = len(ledger.read())
         except FileNotFoundError:
             id = 0
-        ledger.write([{'id': id, 'date': self.get_date(), **transaction}], mode='a')
+        entry = [{'id': id, 'date': self.get_date(), **transaction}]
+        ledger.write(entry, mode='a')
 
     def get_transactions(self):
         ledger = self.create_ledger()
