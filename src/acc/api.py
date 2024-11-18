@@ -24,18 +24,19 @@ def date():
 @api.route('/ledger', methods=['GET', 'PUT'])
 def ledger():
     app = get_app()
-    if request.method == 'PUT':
+    if request.method == 'GET':
+        return {'ledger': app.ledger_path}
+    elif request.method == 'PUT':
         new_ledger = request.get_json()['ledger']
         app.ledger_path = new_ledger
-    else:
-        return {'ledger': app.ledger_path}
 
 
 @api.route('/transactions', methods=['GET', 'POST'])
 def transactions():
     app = get_app()
-    if request.method == 'POST':
+    if request.method == 'GET':
+        transactions = app.get_transactions()
+        return {'transactions': transactions}
+    elif request.method == 'POST':
         transaction = request.get_json()
         app.add_transaction(transaction)
-    else:
-        return {'transactions': app.get_transactions()}
