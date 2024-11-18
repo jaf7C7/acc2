@@ -51,3 +51,7 @@ def run(app_runner):
         app_runner()
     except ArgumentError:
         return 1
+    except (BrokenPipeError, KeyboardInterrupt):
+        return 2
+    else:
+        return 0
