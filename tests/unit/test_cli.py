@@ -1,4 +1,5 @@
 from unittest.mock import Mock
+from argparse import ArgumentError
 import pytest
 from acc.cli import parse_args, run_app
 
@@ -30,8 +31,8 @@ def test_transaction_parser(command):
     )
 
 
-def test_non_integer_amount_raises_exception():
-    with pytest.raises(Exception):
+def test_non_integer_amount_raises_argument_error():
+    with pytest.raises(ArgumentError):
         parse_args(['debit', 'ten ninety nine', 'Maltesers'])
 
 
