@@ -26,7 +26,7 @@ def test_transaction_parser(command):
     args = parse_args([command, '1099', 'Maltesers'])
     assert (
         args.command == command
-        and args.amount == '1099'
+        and args.amount == 1099
         and args.description == 'Maltesers'
     )
 
