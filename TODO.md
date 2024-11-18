@@ -1,7 +1,7 @@
 # TODO:
 
 - [ ] `cli` module:
-    - [ ] `run_app(argv, app)`: Creates an application instance, runs `parse_args(argv)`, calls corresponding `Application` method
+    - [x] `run_app(args, app)`: Calls `Application` methods based on `args`
     - [ ] `run(argv)`: Calls `run_app(sys.argv[1:])`, handles any exceptions, and returns an integer exit code.
 - [ ] Integration tests:
     - [ ] cli

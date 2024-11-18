@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 from argparse import ArgumentError
 import pytest
-from acc.cli import parse_args, run_app
+from acc.cli import parse_args, run_app, run
 
 
 @pytest.mark.parametrize(
@@ -80,3 +80,10 @@ def test_run_app_calls_add_transaction(command, app):
 def test_run_app_calls_get_transactions(app):
     args = Mock(command='report')
     assert run_app(args, app=app) == app.get_transactions()
+
+
+def test_run_returns_1_if_argument_error_raised():
+    bad_arg = Mock(option_strings=[''])
+    arg_error = ArgumentError(argument=bad_arg, message='')
+    run_app = Mock(side_effect=arg_error)
+    assert run(app_runner=run_app) == 1

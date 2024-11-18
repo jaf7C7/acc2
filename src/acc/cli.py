@@ -1,4 +1,4 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentError
 
 
 def parse_args(argv):
@@ -44,3 +44,10 @@ def run_app(args, app):
         app.add_transaction(transaction)
     elif args.command == 'report':
         return app.get_transactions()
+
+
+def run(app_runner):
+    try:
+        app_runner()
+    except ArgumentError:
+        return 1
