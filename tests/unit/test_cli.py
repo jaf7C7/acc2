@@ -83,8 +83,10 @@ def test_run_app_calls_get_transactions(app):
 
 
 def test_run_returns_1_if_argument_error_raised():
-    bad_argument = Mock(option_strings=[''])
-    argument_error = ArgumentError(argument=bad_argument, message='')
+    # `argument.option_strings` is a required parameter for the `ArgumentError`
+    # constructor.
+    bad_argument = Mock(option_strings=['--foo'])
+    argument_error = ArgumentError(argument=bad_argument, message='bar')
     run_app = Mock(side_effect=argument_error)
     assert run(app_runner=run_app) == 1
 
