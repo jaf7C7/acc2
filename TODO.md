@@ -1,8 +1,11 @@
 # TODO:
 
 - [ ] `cli` module:
-    - [ ] `run()`: Calls `_run()`, handles any exceptions, and returns an integer exit code.
-    - [ ] `_run()`: Creates an application instance, runs `parse_args(sys.argv[1:])`, calls corresponding `Application` method
+    - [ ] `run_app(argv, app)`: Creates an application instance, runs `parse_args(argv)`, calls corresponding `Application` method
+    - [ ] `run(argv)`: Calls `run_app(sys.argv[1:])`, handles any exceptions, and returns an integer exit code.
+- [ ] Integration tests:
+    - [ ] cli
+    - [ ] api
 - [ ] Make sure methods for all classes are robust against bad inputs etc.
     - [ ] Informative error messages
         - [ ] cli
@@ -11,6 +14,7 @@
         - [ ] flask
             - [ ] text in json response
             - [ ] appropriate status codes
+- [ ] Use a database instead of a csvfile
 - [ ] Extend transaction reporting (different date ranges, get balance etc.)
 - [ ] Write proper README
     - [ ] Usage
