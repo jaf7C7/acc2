@@ -31,11 +31,13 @@ def _run(argv, app):
             app.set_date(args.date)
         else:
             print(app.get_date())
+
     elif args.command == 'ledger':
         if args.ledger is not None:
             app.ledger_path = args.ledger
         else:
             print(app.ledger_path)
+
     elif args.command in ('credit', 'debit'):
         transaction = {
             'type': args.command,
@@ -43,6 +45,7 @@ def _run(argv, app):
             'description': args.description,
         }
         app.add_transaction(transaction)
+
     elif args.command == 'report':
         template = '{:<6}  {:10}  {:>8}  {}'
         header = None
