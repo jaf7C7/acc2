@@ -33,3 +33,13 @@ def test_ledger_cmd_with_new_ledger_sets_new_ledger_path(app):
     new_ledger = 'new_ledger'
     run(['ledger', new_ledger], app=app)
     assert app.ledger_path == new_ledger
+
+
+@pytest.mark.parametrize('command', ('debit', 'credit'))
+def test_debit_and_credit_cmds_with_valid_params_add_new_transaction(command, app):
+    amount = '1099'  # Elements of `sys.argv` are always strings.
+    description = 'Marmite'
+    run([command, amount, description], app=app)
+    app.add_transaction.assert_called_with(
+        {'type': command, 'amount': int(amount), 'description': description}
+    )
