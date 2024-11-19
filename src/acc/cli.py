@@ -1,7 +1,7 @@
 from argparse import ArgumentParser, ArgumentError
 
 
-def parse_args(argv):
+def _parse_args(argv):
     parser = ArgumentParser(exit_on_error=False)
     subparsers = parser.add_subparsers(dest='command')
 
@@ -24,7 +24,8 @@ def parse_args(argv):
     return parser.parse_args(argv)
 
 
-def run_app(args, app):
+def _run(argv, app):
+    args = _parse_args(argv)
     if args.command == 'date':
         if args.date is not None:
             app.set_date(args.date)
@@ -46,9 +47,9 @@ def run_app(args, app):
         print(app.get_transactions())
 
 
-def run(app_runner):
+def run(argv, app):
     try:
-        app_runner()
+        _run(argv, app)
     except ArgumentError:
         return 1
     except (BrokenPipeError, KeyboardInterrupt):
