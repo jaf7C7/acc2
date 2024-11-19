@@ -1,7 +1,5 @@
 # TODO:
 
-- [ ] Refactoring: make `run_app` non-public and just test `run` (adapt current tests)
-- [ ] Make `run` print out instead of returning them
 - [ ] Add `tabulate()` function to format reports (pass to `run` as `report_formatter` param)
 - [ ] Integration tests:
     - [ ] cli (WIP: failing test)
