@@ -24,6 +24,19 @@ def _parse_args(argv):
     return parser.parse_args(argv)
 
 
+def _tabulate(transactions):
+    template = '{:<6}  {:10}  {:>8}  {}'
+    header = None
+    for transaction in transactions:
+        transaction['amount'] = int(transaction['amount']) / 100
+        if transaction.pop('type') == 'debit':
+            transaction['amount'] *= -1
+        if header is None:
+            header = transaction.keys()
+            yield template.format(*header).upper()
+        yield template.format(*transaction.values())
+
+
 def _run(argv, app):
     args = _parse_args(argv)
     if args.command == 'date':
@@ -47,16 +60,8 @@ def _run(argv, app):
         app.add_transaction(transaction)
 
     elif args.command == 'report':
-        template = '{:<6}  {:10}  {:>8}  {}'
-        header = None
-        for transaction in app.get_transactions():
-            transaction['amount'] = int(transaction['amount']) / 100
-            if transaction.pop('type') == 'debit':
-                transaction['amount'] *= -1
-            if header is None:
-                header = transaction.keys()
-                print(template.format(*header).upper())
-            print(template.format(*transaction.values()))
+        for row in _tabulate(app.get_transactions()):
+            print(row)
 
 
 def run(*args, **kwargs):
