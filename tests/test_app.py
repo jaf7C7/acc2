@@ -14,7 +14,7 @@ def test_set_date_sets_current_app_date(app):
     assert app.get_date() == new_date
 
 
-def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
+def test_value_error_raised_if_new_date_is_not_a_valid_iso_format_date(app):
     with pytest.raises(ValueError):
         app.set_date('2000/01/01')
 
