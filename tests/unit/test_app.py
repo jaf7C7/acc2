@@ -9,8 +9,9 @@ def app():
 
 
 def test_set_date_sets_current_app_date(app):
-    app.set_date('1999-12-31')
-    assert app.get_date() == '1999-12-31'
+    new_date = '1999-12-31'
+    app.set_date(new_date)
+    assert app.get_date() == new_date
 
 
 def test_exception_raised_if_new_date_is_not_a_valid_iso_format_date(app):
@@ -50,8 +51,7 @@ def test_get_transactions_returns_list_of_recorded_transactions(app):
 
 def test_filenotfounderror_gives_id_0(app):
     ledger = app.create_ledger()
-    attrs = {'read.side_effect': FileNotFoundError}
-    ledger.configure_mock(**attrs)
+    ledger.read.side_effect = FileNotFoundError
     transaction = {'type': 'debit', 'amount': 1099, 'description': 'Soup'}
     app.add_transaction(transaction)
     ledger.write.assert_called_with(
