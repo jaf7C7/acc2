@@ -20,7 +20,7 @@ class Application:
     def set_date(self, new_date):
         try:
             date.fromisoformat(new_date)
-        except Exception as e:
+        except ValueError as e:
             raise e
         else:
             self._date = new_date
