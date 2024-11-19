@@ -14,6 +14,7 @@
             - [ ] appropriate status codes
 - [ ] Add option to use a database instead of a csvfile
 - [ ] Extend transaction reporting (different date ranges, get balance etc.)
+- [ ] Use `tabulate` (pip install tabulate) for table generation
 - [ ] Write proper README
     - [ ] Usage
     - [ ] Development process (TDD)
