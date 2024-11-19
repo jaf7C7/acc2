@@ -12,7 +12,7 @@ def _parse_args(argv):
     ledger_parser.add_argument('ledger', nargs='?')
 
     transaction_parser = ArgumentParser(add_help=False)
-    transaction_parser.add_argument('amount', type=int)
+    transaction_parser.add_argument('amount')
     transaction_parser.add_argument('description')
 
     debit_credit_parser = subparsers.add_parser(

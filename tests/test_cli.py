@@ -42,7 +42,7 @@ def test_debit_and_credit_cmds_with_valid_params_add_new_transaction(command, ap
     description = 'Marmite'
     run([command, amount, description], app=app)
     app.add_transaction.assert_called_with(
-        {'type': command, 'amount': int(amount), 'description': description}
+        {'type': command, 'amount': amount, 'description': description}
     )
 
 
