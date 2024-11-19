@@ -37,7 +37,7 @@ def _tabulate(transactions):
         transaction['amount'] = int(transaction['amount']) / 100
         if transaction.pop('type') == 'debit':
             transaction['amount'] *= -1
-        transaction['amount'] = '{:.2f}'.format(transaction['amount'])
+        transaction['amount'] = '{:+.2f}'.format(transaction['amount'])
         yield template.format(*transaction.values())
 
 

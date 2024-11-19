@@ -54,13 +54,21 @@ def test_report_cmd_prints_all_transactions_in_formatted_table(app, capsys):
             'type': 'debit',
             'amount': '1099',
             'description': 'Maltesers',
-        }
+        },
+        {
+            'id': 1,
+            'date': '2000-01-02',
+            'type': 'credit',
+            'amount': '2450',
+            'description': 'Gift from Grandma',
+        },
     ]
     run(['report'], app=app)
     out, err = capsys.readouterr()
     assert out == (
         'ID      DATE          AMOUNT  DESCRIPTION\n'
         '0       2000-01-01    -10.99  Maltesers\n'
+        '1       2000-01-02    +24.50  Gift from Grandma\n'
     )
 
 
