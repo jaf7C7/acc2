@@ -5,7 +5,7 @@ def _parse_args(argv):
     parser = ArgumentParser(exit_on_error=False)
     subparsers = parser.add_subparsers(dest='command')
 
-    date_parser = subparsers.add_parser('date')
+    date_parser = subparsers.add_parser('date', exit_on_error=False)
     date_parser.add_argument('date', nargs='?')
 
     ledger_parser = subparsers.add_parser('ledger')

@@ -1,4 +1,5 @@
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
+from argparse import ArgumentError
 import pytest
 from acc.app import Application
 from acc.cli import run
@@ -43,3 +44,22 @@ def test_debit_and_credit_cmds_with_valid_params_add_new_transaction(command, ap
     app.add_transaction.assert_called_with(
         {'type': command, 'amount': int(amount), 'description': description}
     )
+
+
+def test_exits_with_status_1_if_argument_error(app):
+    error = ArgumentError(argument=MagicMock(), message=Mock())
+    argv = Mock()
+    argv.__getitem__ = Mock(side_effect=error)
+    assert run(argv, app=app) == 1
+
+
+@pytest.mark.parametrize('error', (KeyboardInterrupt, BrokenPipeError))
+def test_exits_with_status_2_if_keyboard_interrupt_or_brokenpipe_error(app, error):
+    argv = Mock()
+    argv.__getitem__ = Mock(side_effect=error)
+    assert run(argv, app=app) == 2
+
+
+def test_exits_with_status_0_if_no_errors(app):
+    argv = MagicMock()
+    assert run(argv, app=app) == 0
