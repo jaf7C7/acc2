@@ -59,9 +59,9 @@ def _run(argv, app):
             print(template.format(*transaction.values()))
 
 
-def run(argv, app):
+def run(*args, **kwargs):
     try:
-        _run(argv, app)
+        _run(*args, **kwargs)
     except ArgumentError:
         return 1
     except (BrokenPipeError, KeyboardInterrupt):
