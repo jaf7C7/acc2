@@ -34,8 +34,15 @@ class Application:
             id = len(ledger.read())
         except FileNotFoundError:
             id = 0
-        entry = [{'id': id, 'date': self.get_date(), **transaction}]
-        ledger.write(entry, mode='a')
+        if transaction['type'] not in ('debit', 'credit'):
+            raise ValueError
+        try:
+            int(transaction['amount'])
+        except ValueError as e:
+            raise e
+        else:
+            entry = [{'id': id, 'date': self.get_date(), **transaction}]
+            ledger.write(entry, mode='a')
 
     def get_transactions(self):
         ledger = self.create_ledger()

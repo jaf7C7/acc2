@@ -44,6 +44,17 @@ def test_add_transactions_writes_new_transaction_to_ledger(app):
     )
 
 
+@pytest.mark.parametrize('type, amount', (['foo', 1099], ['debit', 'bar']))
+def test_value_error_raised_if_transaction_has_invalid_params(type, amount, app):
+    transaction = {
+        'type': type,
+        'amount': amount,
+        'description': 'Stamps',
+    }
+    with pytest.raises(ValueError):
+        app.add_transaction(transaction)
+
+
 def test_get_transactions_returns_list_of_recorded_transactions(app):
     ledger = app.create_ledger()
     assert app.get_transactions() == ledger.read()
