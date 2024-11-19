@@ -28,7 +28,7 @@ def _tabulate(transactions):
     fields = {
         'id': '{:<6}',
         'date': '{:10}',
-        'amount': '{:>8}',
+        'amount': '{:>19}',
         'description': '{}',
     }
     template = '  '.join(fields.values())
@@ -37,7 +37,10 @@ def _tabulate(transactions):
         transaction['amount'] = int(transaction['amount']) / 100
         if transaction.pop('type') == 'debit':
             transaction['amount'] *= -1
-        transaction['amount'] = '{:+.2f}'.format(transaction['amount'])
+        # Amounts are rounded to 2 decimal places with `,` as a thousands
+        # separator.  This is not put in the `fields` variable as it can only
+        # apply to numeric types, and cannot be used for formatting the header.
+        transaction['amount'] = '{:+,.2f}'.format(transaction['amount'])
         yield template.format(*transaction.values())
 
 

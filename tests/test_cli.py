@@ -59,16 +59,16 @@ def test_report_cmd_prints_all_transactions_in_formatted_table(app, capsys):
             'id': 1,
             'date': '2000-01-02',
             'type': 'credit',
-            'amount': '2450',
+            'amount': '999_999_999_999_99',
             'description': 'Gift from Grandma',
         },
     ]
     run(['report'], app=app)
     out, err = capsys.readouterr()
     assert out == (
-        'ID      DATE          AMOUNT  DESCRIPTION\n'
-        '0       2000-01-01    -10.99  Maltesers\n'
-        '1       2000-01-02    +24.50  Gift from Grandma\n'
+        'ID      DATE                     AMOUNT  DESCRIPTION\n'
+        '0       2000-01-01               -10.99  Maltesers\n'
+        '1       2000-01-02  +999,999,999,999.99  Gift from Grandma\n'
     )
 
 
