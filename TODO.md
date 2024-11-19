@@ -1,5 +1,8 @@
 # TODO:
 
+- [ ] Do all data validation in `Application` not in `cli` or `api`
+    - [ ] Check transaction `amount` validity with `str.isnumeric()`
+    - [ ] Check date validity with `date.fromisoformat()`
 - [ ] Add `tabulate()` function to format reports (pass to `run` as `report_formatter` param)
 - [ ] Integration tests:
     - [ ] cli (WIP: failing test)
