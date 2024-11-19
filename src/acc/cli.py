@@ -25,15 +25,19 @@ def _parse_args(argv):
 
 
 def _tabulate(transactions):
-    template = '{:<6}  {:10}  {:>8}  {}'
-    header = None
+    fields = {
+        'id': '{:<6}',
+        'date': '{:10}',
+        'amount': '{:>8}',
+        'description': '{}',
+    }
+    template = '  '.join(fields.values())
+    yield template.format(*fields.keys()).upper()
     for transaction in transactions:
         transaction['amount'] = int(transaction['amount']) / 100
         if transaction.pop('type') == 'debit':
             transaction['amount'] *= -1
-        if header is None:
-            header = transaction.keys()
-            yield template.format(*header).upper()
+        transaction['amount'] = '{:.2f}'.format(transaction['amount'])
         yield template.format(*transaction.values())
 
 
