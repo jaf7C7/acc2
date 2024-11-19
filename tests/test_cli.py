@@ -64,8 +64,10 @@ def test_report_cmd_prints_all_transactions_in_formatted_table(app, capsys):
     )
 
 
-def test_exits_with_status_1_if_argument_error(app):
-    error = ArgumentError(argument=MagicMock(), message=Mock())
+@pytest.mark.parametrize(
+    'error', (ArgumentError(argument=MagicMock(), message=Mock()), ValueError)
+)
+def test_exits_with_status_1_if_argument_or_value_error(error, app):
     argv = Mock()
     argv.__getitem__ = Mock(side_effect=error)
     assert run(argv, app=app) == 1

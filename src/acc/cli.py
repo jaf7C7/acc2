@@ -71,7 +71,7 @@ def _run(argv, app):
 def run(*args, **kwargs):
     try:
         _run(*args, **kwargs)
-    except ArgumentError:
+    except (ArgumentError, ValueError):
         return 1
     except (BrokenPipeError, KeyboardInterrupt):
         return 2
