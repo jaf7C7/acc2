@@ -46,11 +46,22 @@ def test_debit_and_credit_cmds_with_valid_params_add_new_transaction(command, ap
     )
 
 
-def test_report_cmd_prints_all_transactions(app, capsys):
+def test_report_cmd_prints_all_transactions_in_formatted_table(app, capsys):
+    app.get_transactions.return_value = [
+        {
+            'id': 0,
+            'date': '2000-01-01',
+            'type': 'debit',
+            'amount': '1099',
+            'description': 'Maltesers',
+        }
+    ]
     run(['report'], app=app)
     out, err = capsys.readouterr()
-    transactions = app.get_transactions()
-    assert out == f'{transactions}\n'
+    assert out == (
+        'ID      DATE          AMOUNT  DESCRIPTION\n'
+        '0       2000-01-01    -10.99  Maltesers\n'
+    )
 
 
 def test_exits_with_status_1_if_argument_error(app):

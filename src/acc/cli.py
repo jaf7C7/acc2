@@ -44,7 +44,16 @@ def _run(argv, app):
         }
         app.add_transaction(transaction)
     elif args.command == 'report':
-        print(app.get_transactions())
+        template = '{:<6}  {:10}  {:>8}  {}'
+        header = None
+        for transaction in app.get_transactions():
+            transaction['amount'] = int(transaction['amount']) / 100
+            if transaction.pop('type') == 'debit':
+                transaction['amount'] *= -1
+            if header is None:
+                header = transaction.keys()
+                print(template.format(*header).upper())
+            print(template.format(*transaction.values()))
 
 
 def run(argv, app):
