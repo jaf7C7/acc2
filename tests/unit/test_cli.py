@@ -6,7 +6,7 @@ from acc.cli import run
 
 @pytest.fixture
 def app():
-    return Mock(spec=Application)
+    return Mock(spec=Application())
 
 
 def test_date_cmd_without_new_date_prints_current_date(app, capsys):
