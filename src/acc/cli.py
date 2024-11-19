@@ -29,12 +29,12 @@ def run_app(args, app):
         if args.date is not None:
             app.set_date(args.date)
         else:
-            return app.get_date()
+            print(app.get_date())
     elif args.command == 'ledger':
         if args.ledger is not None:
             app.ledger_path = args.ledger
         else:
-            return app.ledger_path
+            print(app.ledger_path)
     elif args.command in ('credit', 'debit'):
         transaction = {
             'type': args.command,
@@ -43,7 +43,7 @@ def run_app(args, app):
         }
         app.add_transaction(transaction)
     elif args.command == 'report':
-        return app.get_transactions()
+        print(app.get_transactions())
 
 
 def run(app_runner):

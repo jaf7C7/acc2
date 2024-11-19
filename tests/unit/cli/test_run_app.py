@@ -8,9 +8,11 @@ def app():
     return Mock()
 
 
-def test_run_app_calls_get_date(app):
+def test_date_cmd_without_new_date_prints_current_date(app, capsys):
     args = Mock(command='date', date=None)
-    assert run_app(args, app=app) == app.get_date()
+    run_app(args, app=app)
+    out, err = capsys.readouterr()
+    assert out == f'{app.get_date()}\n'
 
 
 def test_run_app_calls_set_date(app):
@@ -19,9 +21,11 @@ def test_run_app_calls_set_date(app):
     app.set_date.assert_called_with('2000-01-01')
 
 
-def test_run_app_returns_ledger_path(app):
+def test_ledger_cmd_without_new_ledger_prints_current_ledger_path(app, capsys):
     args = Mock(command='ledger', ledger=None)
-    assert run_app(args, app=app) == app.ledger_path
+    run_app(args, app=app)
+    out, err = capsys.readouterr()
+    assert out == f'{app.ledger_path}\n'
 
 
 def test_run_app_sets_ledger_path(app):
@@ -39,6 +43,8 @@ def test_run_app_calls_add_transaction(command, app):
     )
 
 
-def test_run_app_calls_get_transactions(app):
+def test_report_cmd_prints_all_transactions(app, capsys):
     args = Mock(command='report')
-    assert run_app(args, app=app) == app.get_transactions()
+    run_app(args, app=app)
+    out, err = capsys.readouterr()
+    assert out == f'{app.get_transactions()}\n'
