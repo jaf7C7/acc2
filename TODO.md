@@ -1,21 +1,18 @@
 # TODO:
 
-- [ ] Do all data validation in `Application` not in `cli` or `api`
-    - [ ] Check transaction `amount` validity with `str.isnumeric()`
-    - [ ] Check date validity with `date.fromisoformat()`
-- [ ] Add `tabulate()` function to format reports (pass to `run` as `report_formatter` param)
-- [ ] Integration tests:
-    - [ ] cli (WIP: failing test)
-    - [ ] api
 - [ ] Make sure methods for all classes are robust against bad inputs etc.
+    - [ ] Do all data validation in `Application` not in `cli` or `api`
+        - [ ] Check transaction `amount` validity with `str.isnumeric()` (maybe)
+        - [ ] Allow `amount` arguments of the form `10.99` and convert and store them as `1099`.
+        - [ ] Check date validity with `date.fromisoformat()`
     - [ ] Informative error messages
         - [ ] cli
-            - [ ] text via ArgumentParser attrs
+            - [ ] help text via ArgumentParser attrs
             - [ ] appropriate exit codes
         - [ ] flask
-            - [ ] text in json response
+            - [ ] help text in json response
             - [ ] appropriate status codes
-- [ ] Use a database instead of a csvfile
+- [ ] Add option to use a database instead of a csvfile
 - [ ] Extend transaction reporting (different date ranges, get balance etc.)
 - [ ] Write proper README
     - [ ] Usage
