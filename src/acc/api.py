@@ -15,7 +15,7 @@ def get_app():
 def date():
     app = get_app()
     if request.method == 'PUT':
-        new_date = request.get_json()['date']
+        new_date = request.form['date']
         app.set_date(new_date)
     else:
         return {'date': app.get_date()}

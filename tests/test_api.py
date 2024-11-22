@@ -34,7 +34,7 @@ def test_get_date_endpoint_returns_the_date(app, client):
 
 
 def test_put_date_endpoint_sets_new_date(app, client):
-    client.put('/date', json={'date': '2020-01-01'})
+    client.put('/date', data={'date': '2020-01-01'})
     app.set_date.assert_called_with('2020-01-01')
 
 
