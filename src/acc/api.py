@@ -27,7 +27,7 @@ def ledger():
     if request.method == 'GET':
         return {'ledger': app.ledger_path}
     elif request.method == 'PUT':
-        new_ledger = request.get_json()['ledger']
+        new_ledger = request.form['ledger']
         app.ledger_path = new_ledger
 
 

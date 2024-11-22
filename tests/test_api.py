@@ -44,7 +44,7 @@ def test_get_ledger_endpoint_returns_the_ledger_path(app, client):
 
 
 def test_put_ledger_endpoint_sets_new_ledger_path(app, client):
-    client.put('/ledger', json={'ledger': 'new_ledger'})
+    client.put('/ledger', data={'ledger': 'new_ledger'})
     assert app.ledger_path == 'new_ledger'
 
 
