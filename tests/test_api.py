@@ -54,6 +54,6 @@ def test_get_transaction_endpoint_returns_list_of_transactions(app, client):
 
 
 def test_post_transactions_endpoint_adds_new_transaction(app, client):
-    transaction = {'foo': 1, 'bar': 2}
-    client.post('/transactions', json=transaction)
+    transaction = {'foo': '1', 'bar': '2'}  # HTTP form data is a string.
+    client.post('/transactions', data=transaction)
     app.add_transaction.assert_called_with(transaction)

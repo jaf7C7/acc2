@@ -38,5 +38,5 @@ def transactions():
         transactions = app.get_transactions()
         return {'transactions': transactions}
     elif request.method == 'POST':
-        transaction = request.get_json()
+        transaction = request.form.to_dict()
         app.add_transaction(transaction)
